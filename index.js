@@ -71,7 +71,8 @@ module.exports = function (options) {
 					case 'ant':
 						throw new Error('Build method "ant" is no longer supported');
 					default:
-						throw new Error(`Unknown build method "${buildMethod}"`);
+						// Use whatever cordova-android uses.
+						break;
 				}
 
 				// Build the platform
