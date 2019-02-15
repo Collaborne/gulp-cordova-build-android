@@ -55,24 +55,30 @@ module.exports = function (options) {
 				}
 			})
 			.then(() => {
-				const options = [];
+				const buildOptions = {
+					platforms: ['android']
+				};
 
 				if (release) {
 					// If the user wants to build for release, add the option
-					options.push('--release');
+					buildOptions.release = true;
 				}
 
-				if (buildMethod === 'ant') {
-					options.push('--ant');
-				} else {
-					options.push('--gradle');
+				switch (buildMethod) {
+					case 'gradle':
+						buildOptions.gradle = true;
+						break;
+					case 'ant':
+						throw new Error('Build method "ant" is no longer supported');
+					default:
+						throw new Error(`Unknown build method "${buildMethod}"`);
 				}
 
 				// Build the platform
-				return cordova.build({platforms: ['android'], options});
+				return cordova.build(buildOptions);
 			})
 			.then(() => {
-				const apkOutputPath = buildMethod === 'ant' ? 'bin' : 'build/outputs/apk';
+				const apkOutputPath = 'build/outputs/apk';
 				const base = path.join(androidPath, apkOutputPath);
 				const cwd = process.env.PWD;
 
