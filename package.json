@@ -1,6 +1,6 @@
 {
 	"name": "gulp-cordova-build-android",
-	"version": "2.1.0-collaborne.2",
+	"version": "2.1.0-collaborne.3",
 	"description": "Build the cordova project for the Android platform.",
 	"license": "MIT",
 	"repository": "SamVerschueren/gulp-cordova-build-android",
