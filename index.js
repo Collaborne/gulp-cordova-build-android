@@ -55,18 +55,16 @@ module.exports = function (options) {
 				}
 			})
 			.then(() => {
-				const buildOptions = {
-					platforms: ['android']
-				};
+				const platformOptions = {};
 
 				if (release) {
 					// If the user wants to build for release, add the option
-					buildOptions.release = true;
+					platformOptions.release = true;
 				}
 
 				switch (buildMethod) {
 					case 'gradle':
-						buildOptions.gradle = true;
+						platformOptions.gradle = true;
 						break;
 					case 'ant':
 						throw new Error('Build method "ant" is no longer supported');
@@ -76,7 +74,7 @@ module.exports = function (options) {
 				}
 
 				// Build the platform
-				return cordova.build(buildOptions);
+				return cordova.build({platforms: ['android'], options: platformOptions});
 			})
 			.then(() => {
 				const apkOutputPath = 'build/outputs/apk';
